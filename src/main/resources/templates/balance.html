@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
+<div th:replace="/fragments/head::heads"></div>
+  <body>
+    
+    <nav th:replace="/fragments/nav::nav-front"></nav>
+<main class="container-fluid mt-5">
+  <div class="bg-light p-5 rounded row">
+
+    <form method="post" th:object="${login}"th:action="@{/balance}" >
+    
+  
+        <div class="form-group">
+          <label for="">Enter your email </label>
+          <input type="text" class="form-control" th:field="*{email1}" th:value="${email}" placeholder="enter mail">
+        </div>
+    </form>
+       
+  
+    <div class="col-7" th:utext="${pages.content}"></div>
+    <div class="overlay text-center d-none">
+        <h4 class="display-4">you are being to redirected paypal.....</h4>
+    </div>
+
+    <div th:if=${!full.empty}>
+
+      <table class="table">
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>loan amount</th>
+          <th>Status</th>
+          <th>Pay</th>
+        </tr>
+        <tr th:each="page: ${full}">
+
+          <td th:if="${page.email==email and page.roles=='Completed'}" th:text="${page.id}"></td>
+          <td th:if="${page.email==email and page.roles=='Completed'}" th:text="${page.name}"></td>
+          <td th:if="${page.email==email and page.roles=='Completed'}"th:text="${page.email}"></td>
+          <td th:if="${page.email==email and page.roles=='Completed'}" th:text="${page.loanamount}"></td>
+          <td th:if="${page.email==email and page.roles=='Completed'}" th:text="${page.roles}"></td>
+          <td th:if="${page.email==email and page.roles=='Completed'}">
+               <a th:onclick="'javascript:function();'"
+               class="pay btn btn-danger ">Pay</a></td>
+        </tr>
+      </table>
+    </div>
+    <div th:unless=${!full.empty}>
+      <p>there are no submissions</p>
+    </div>
+  </div>
+</main>
+<div class="paypaldiv">
+    <form action="https://www.sandbox.paypal.com/us/cgi-bin/webscr" method = "post" id="paypalform">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="upload" value="1">
+        <input type="hidden" name="business" value="bestbank@gmail.com">
+
+        <input type="hidden" name="currency_code" value="usd">
+        <input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with paypal - it's fast, free and secure">
+
+
+    </form>
+</div>
+
+
+<div th:replace="/fragments/footer"></div>
+<script>
+    $(function(){
+        $("a.pay").click(function (e) {
+            e.preventDefault();
+            $("div.overlay").removeClass("d-none");
+            $("form#paypalform").submit();
+        })
+    });
+</script>
+
+
+      
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
+<div th:replace="/fragments/head::heads"></div>
+  <body>
+    
+    <nav th:replace="/fragments/nav::nav-home"></nav>
+<main class="container">
+  
+    <h1 class="display-2"> Register page</h1>
+    <div th:if="${message}" th:text="${message}" th:class="${'alert'+alertclass}"></div>
+    
+
+    <form method="post" th:object="${register}" th:action="@{/register}">
+      <div class="form-group">
+        <label for="">Enter your name</label>
+        <input type="text" class="form-control" th:field="*{name}"  placeholder="Title">
+      </div>
+
+      <div class="form-group">
+        <label for="">Enter you email </label>
+        <input type="text" class="form-control" th:field="*{email}" placeholder="Slug">
+      </div>
+
+      <div class="form-group">
+        <label for="">enter your address </label>
+        <textarea  rows="10" class="form-control" th:field="*{address}"></textarea>
+      </div>
+
+     
+      <div class="form-group">
+        <label for="">Gender </label>
+        <input type="text" class="form-control" th:field="*{gender}" placeholder="Slug">
+      </div>
+      <div class="form-group">
+        <label for="">password</label>
+        <input type="text" class="form-control" th:field="*{password}" placeholder="Slug">
+      </div>
+
+
+      <button class="btn btn-danger">Submit</button>
+    </form>
+
+   
+    
+
+</main>
+
+
+<div th:replace="/fragments/footer"></div>
+
+      
+  </body>
+</html>

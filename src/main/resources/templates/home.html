@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
+<div th:replace="/fragments/head::heads"></div>
+  <body>
+    
+    <nav th:replace="/fragments/nav::nav-front"></nav>
+<main class="container-fluid mt-5">
+  <div class="bg-light p-5 rounded row">
+
+    <div class="col-7" th:utext="${pages.content}"></div>
+
+    <div th:if=${!full.empty}>
+
+      <table class="table">
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>loan amount</th>
+          <th>Status</th>
+        </tr>
+        <tr th:each="page: ${full}">
+
+          <td th:if="${page.email==email}" th:text="${page.id}"></td>
+          <td th:if="${page.email==email}" th:text="${page.name}"></td>
+          <td th:if="${page.email==email}"th:text="${page.email}"></td>
+          <td th:if="${page.email==email}" th:text="${page.loanamount}"></td>
+          <td th:if="${page.email==email}" th:text="${page.roles}"></td>
+        </tr>
+      </table>
+    </div>
+    <div th:unless=${!full.empty}>
+      <p>there are no submissions</p>
+    </div>
+  </div>
+</main>
+
+
+<div th:replace="/fragments/footer"></div>
+
+      
+  </body>
+</html>
